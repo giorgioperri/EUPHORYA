@@ -1,8 +1,11 @@
 //variabile per capire quale droga è stata scelta
-int droga = 0;
+int droga = 1;
 
 //variabile per capire in che livello si trova l'utente
-int livello = 0;
+int livello = 3;
+
+//variabile per la chiusura nel glitch d1l3
+int quitTimer = 0;
 
 //variabile font
 PFont font;
@@ -28,7 +31,7 @@ float hoverMenu1Pos = 0;
 
 //variabili primo livello allucinogeni
 String s = "";
-
+ 
 //dichiaro un timer
 Timer b_timer;
 
@@ -36,8 +39,9 @@ Timer b_timer;
 String b = ""; 
 
 // queste servono per il movimento del cursorino
-float cursorStart = 300-71;
-float cursorMove = 17;
+float cursorStart;
+float originalCursorStart;
+float characterWidth = 18;
 
 //imposto alcune variabili per la posizione del secondo elemento del menù
 float menu2x = width/2;
@@ -62,16 +66,15 @@ boolean newLevel = true;
 int contatore = 0;
 
 int xfine = 150;
-int xiniz = 0;
+int xiniz = 25;
 int yfine = 50;
-int yiniz = 25;
+int yiniz = 55;
 int ciclofine;
-int numpoint = 60;
 
 boolean gameOver = true;
 
 void setup() {
-  size(600, 400);
+  fullScreen();
   //carico la font nel programma
   font = loadFont("DeterminationMonoWeb-48.vlw");
   textFont(font);
@@ -86,6 +89,9 @@ void setup() {
   //carico il file audio "lvlSolved"
   lvlSolved = new SoundFile(this, "lvlSolved.wav");
   b_timer = new Timer();
+
+  cursorStart = width/2 - 70;
+  originalCursorStart = width/2 - 70;
 }
 
 void draw() {
@@ -94,7 +100,6 @@ void draw() {
 
   //MENU PRINCIPALE
   if (droga == 0) {
-
     //scrivo il titolo del gioco
     textAlign(CENTER);
     textSize(48);
@@ -111,8 +116,9 @@ void draw() {
     text("Cannabinoids", width/2, height/2+100);
     fill(255);
 
-    //codifico la logica dell'hover dei tasti, ogni else un diverso tasto
-    if (mouseX > width/2 - 75 && mouseX < width/2 +75 && mouseY > height/2-15 && mouseY < height/2) { //il mouse si trova sul primo elemento
+    // logica dell'hover dei tasti, ogni else un diverso tasto
+    if (mouseX > width/2 - 75 && mouseX < width/2 +75 && mouseY > height/2-15 && mouseY < height/2) { 
+      //il mouse si trova sul primo elemento
       //cambio il cursore del mouse
       cursor(HAND);
       //riproduco l'elemento musicale
@@ -206,21 +212,21 @@ void draw() {
     }
   }
 
-  // allucinogeni
+  //ANCHOR allucinogeni
   if (droga == 1 ) {
     if (livello == 0) {
       textAlign(CENTER);
       textSize(30);
       text("How to play:", width/2, height/2-150);
       textSize(30);
-      text("Just write \"I'm fine\"", width/2, height/2-100);
+      text("Just write \"i'm fine\"", width/2, height/2-100);
       textSize(36);
       if (second() % 2 == 0) {
         fill(255);
         rect(cursorStart, height/2+35, 14, 3);
       }
       textAlign(LEFT);
-      text(s.toUpperCase(), width/2-72, height/2+30);
+      text(s.toLowerCase(), width/2-72, height/2+30);
       if (DrogaLv0.equals(s)) {
         if (solved) {
           lvlSolved.play();
@@ -240,7 +246,7 @@ void draw() {
       if (newLevel) {
         s = "";
         newLevel = false;
-        cursorStart = 300-71;
+        cursorStart = originalCursorStart;
         solved = true;
       }
       textAlign(LEFT);
@@ -253,7 +259,7 @@ void draw() {
         rect(cursorStart, height/2+35, 14, 3);
       }
       textAlign(LEFT);
-      text(s.toUpperCase(), width/2-72, height/2+30);
+      text(s.toLowerCase(), width/2-72, height/2+30);
       if (DrogaLv0.equals(s)) {
         if (solved) {
           lvlSolved.play();
@@ -274,7 +280,7 @@ void draw() {
       if (newLevel) {
         s = "";
         newLevel = false;
-        cursorStart = 300-71;
+        cursorStart = originalCursorStart;
         solved = true;
       }
       textAlign(LEFT);
@@ -287,7 +293,7 @@ void draw() {
         rect(cursorStart, height/2+35, 14, 3);
       }
       textAlign(LEFT);
-      text(s.toUpperCase(), width/2-72, height/2+30);
+      text(s.toLowerCase(), width/2-72, height/2+30);
       if (DrogaLv0.equals(s)) {
         if (solved) {
           lvlSolved.play();
@@ -308,7 +314,7 @@ void draw() {
       if (newLevel) {
         s = "";
         newLevel = false;
-        cursorStart = 300-71;
+        cursorStart = originalCursorStart;
         solved = true;
       }
       textAlign(LEFT);
@@ -318,125 +324,46 @@ void draw() {
       textAlign(LEFT);
       fill(255);
 
-      text(stringalv3, xiniz, yiniz);
-      text(stringalv3, xfine, yiniz);
-      text(stringalv3, (2 * xfine), yiniz);
-      text(stringalv3, (3 * xfine), yiniz);
-
-      text(stringalv3, xiniz, yfine);
-      text(stringalv3, xfine, yfine);
-      text(stringalv3, (2 * xfine), yfine);
-      text(stringalv3, (3 * xfine), yfine);
-
-      text(stringalv3, xiniz, 2 * yfine - yiniz);
-      text(stringalv3, xfine, 2 * yfine - yiniz);
-      text(stringalv3, (2 * xfine), 2 * yfine - yiniz);
-      text(stringalv3, (3 * xfine), 2 * yfine - yiniz);
-
-      text(stringalv3, xiniz, 3 * yfine - 2 * yiniz);
-      text(stringalv3, xfine, 3 * yfine - 2 * yiniz);
-      text(stringalv3, (2 * xfine), 3 * yfine - 2 * yiniz);
-      text(stringalv3, (3 * xfine), 3 * yfine - 2 * yiniz);
-
-      text(stringalv3, xiniz, 4 * yfine - 3 * yiniz);
-      text(stringalv3, xfine, 4 * yfine - 3 * yiniz);
-      text(stringalv3, (2 * xfine), 4 * yfine - 3 * yiniz);
-      text(stringalv3, (3 * xfine), 4 * yfine - 3 * yiniz);
-
-      text(stringalv3, xiniz, 5 * yfine - 4 * yiniz);
-      text(stringalv3, xfine, 5 * yfine - 4 * yiniz);
-      text(stringalv3, (2 * xfine), 5 * yfine - 4 * yiniz);
-      text(stringalv3, (3 * xfine), 5 * yfine - 4 * yiniz);
-
-      text(stringalv3, xiniz, 6 * yfine - 5 * yiniz);
-      text(stringalv3, xfine, 6 * yfine - 5 * yiniz);
-      text(stringalv3, (2 * xfine), 6 * yfine - 5 * yiniz);
-      text(stringalv3, (3 * xfine), 6 * yfine - 5 * yiniz);
-
-      text(stringalv3, xiniz, 7 * yfine - 6 * yiniz);
-      text(stringalv3, xfine, 7 * yfine - 6 * yiniz);
-      text(stringalv3, (2 * xfine), 7 * yfine - 6 * yiniz);
-      text(stringalv3, (3 * xfine), 7 * yfine - 6 * yiniz);
-
-      text(stringalv3, xiniz, 8 * yfine - 7 * yiniz);
-      text(stringalv3, xfine, 8 * yfine - 7 * yiniz);
-      text(stringalv3, (2 * xfine), 8 * yfine - 7 * yiniz);
-      text(stringalv3, (3 * xfine), 8 * yfine - 7 * yiniz);
-
-      text(stringalv3, xiniz, 9 * yfine - 8 * yiniz);
-      text(stringalv3, xfine, 9 * yfine - 8 * yiniz);
-      text(stringalv3, (2 * xfine), 9 * yfine - 8 * yiniz);
-      text(stringalv3, (3 * xfine), 9 * yfine - 8 * yiniz);
-
-      text(stringalv3, xiniz, 10 * yfine - 9 * yiniz);
-      text(stringalv3, xfine, 10 * yfine - 9 * yiniz);
-      text(stringalv3, (2 * xfine), 10 * yfine - 9 * yiniz);
-      text(stringalv3, (3 * xfine), 10 * yfine - 9 * yiniz);
-
-      text(stringalv3, xiniz, 11 * yfine - 10 * yiniz);
-      text(stringalv3, xfine, 11 * yfine - 10 * yiniz);
-      text(stringalv3, (2 * xfine), 11 * yfine - 10 * yiniz);
-      text(stringalv3, (3 * xfine), 11 * yfine - 10 * yiniz);
-
-      text(stringalv3, xiniz, 12 * yfine - 11 * yiniz);
-      text(stringalv3, xfine, 12 * yfine - 11 * yiniz);
-      text(stringalv3, (2 * xfine), 12 * yfine - 11 * yiniz);
-      text(stringalv3, (3 * xfine), 12 * yfine - 11 * yiniz);
-
-      text(stringalv3, xiniz, 13 * yfine - 12 * yiniz);
-      text(stringalv3, xfine, 13 * yfine - 12 * yiniz);
-      text(stringalv3, (2 * xfine), 13 * yfine - 12 * yiniz);
-      text(stringalv3, (3 * xfine), 13 * yfine - 12 * yiniz);
-
-      text(stringalv3, xiniz, 14 * yfine - 13 * yiniz);
-      text(stringalv3, xfine, 14 * yfine - 13 * yiniz);
-      text(stringalv3, (2 * xfine), 14 * yfine - 13 * yiniz);
-      text(stringalv3, (3 * xfine), 14 * yfine - 13 * yiniz);
-
-      text(stringalv3, xiniz, 15 * yfine - 14 * yiniz);
-      text(stringalv3, xfine, 15 * yfine - 14 * yiniz);
-      text(stringalv3, (2 * xfine), 15 * yfine - 14 * yiniz);
-      text(stringalv3, (3 * xfine), 15 * yfine - 14 * yiniz);
-
-      text(stringalv3, xiniz, 16 * yfine - 15 * yiniz);
-      text(stringalv3, xfine, 16 * yfine - 15 * yiniz);
-      text(stringalv3, (2 * xfine), 16 * yfine - 15 * yiniz);
-      text(stringalv3, (3 * xfine), 16 * yfine - 15 * yiniz);
-
-      if(s.length() == 1){
-        stringalv3 = "R'M FINE";
-      }
-
-      if(s.length() == 2){
-        stringalv3 = "R M FINE";
-      }
-
-      if(s.length() == 3){
-        stringalv3 = "R U FINE";
-      }
-
-      if(s.length() == 4){
-        stringalv3 = "R U FANE";
-      }
-
-      if(s.length() == 5){
-        stringalv3 = "R U SANE";
-      }
-
-      if(s.length() == 6){
-        stringalv3 = "R U SUNE";
-      }
-
-      if(s.length() == 7){
-        stringalv3 = "R U SURE";
-      }
-
-      if(s.length() == 8){
-        for(ciclofine = 0; ciclofine <= 60; ciclofine++){
-          fill(255, 0, 0);
-          text("?", random(0, width), random(0, height));
-          tooMuchText.play();
+      for(int i = 0; i < floor((width/((characterWidth*8) + 20)) + 1); i++) {
+        for(int j = 0; j < floor((height/55)); j++) {
+          text(stringalv3, xiniz + (160 * i), yiniz * (j+1));
         }
+      }
+      
+      switch (s.length()) {
+        case 1:
+          stringalv3 = "R'M FINE";
+          break;
+        case 2:
+          stringalv3 = "R M FINE";
+          break;
+        case 3:
+          stringalv3 = "R U FINE";
+          break;
+        case 4:
+          stringalv3 = "R U FANE";
+          break;
+        case 5:
+          stringalv3 = "R U SANE";
+          break;
+        case 6:
+          stringalv3 = "R U SUNE";
+          break;
+        case 7:
+          stringalv3 = "R U SURE";
+          break;
+        case 8:
+          quitTimer++;
+          for(ciclofine = 0; ciclofine <= 60; ciclofine++){
+            fill(255, 0, 0);
+            text("?", random(0, width), random(0, height));
+            tooMuchText.play();
+          }
+          if(quitTimer >= 100) exit();
+          break;
+        default :
+          stringalv3 = "I'M FINE";
+        break;	
       }
     }
 
@@ -460,7 +387,7 @@ void draw() {
 
   }
 
-  // stimolanti
+  //ANCHOR stimolanti
   if (droga == 2 ) {
     if (livello == 0) {
       textAlign(CENTER);
@@ -477,8 +404,7 @@ void draw() {
     }
   }
 
-
-  // cannabinoidi
+  //ANCHOR cannabinoidi
   if (droga == 3 ) {
     if (livello == 0) {
       textAlign(CENTER);
@@ -492,7 +418,7 @@ void draw() {
         rect(cursorStart, height/2+35, 14, 3);
       }
       textAlign(LEFT);
-      text(s.toUpperCase(), width/2-72, height/2+30);
+      text(s.toLowerCase(), width/2-72, height/2+30);
       if (DrogaLv0.equals(s)) {
         if (solved) {
           lvlSolved.play();
@@ -517,7 +443,7 @@ void draw() {
       if (newLevel) {
         s = "";
         newLevel = false;
-        cursorStart = 300-71;
+        cursorStart = originalCursorStart;
         solved = true;
       }
       if (second() % 2 == 0) {
@@ -525,12 +451,12 @@ void draw() {
         rect(cursorStart, height/2+35, 14, 3);
       }
       textAlign(LEFT);
-      text(s.toUpperCase(), width/2-72, height/2+30);
+      text(s.toLowerCase(), width/2-72, height/2+30);
 
       if (b_timer.check(int(random(2000,4000))) == true) {
         if (b.length() > 0) {
           s = s + b.substring(0, 1);
-          cursorStart = cursorStart + cursorMove;
+          cursorStart = cursorStart + characterWidth;
           b = b.substring(1, b.length());
         }
         b_timer.start();
@@ -561,7 +487,7 @@ void draw() {
       if (newLevel) {
         s = "";
         newLevel = false;
-        cursorStart = 300-71;
+        cursorStart = originalCursorStart;
         solved = true;
       }
       if (second() % 2 == 0) {
@@ -570,11 +496,11 @@ void draw() {
       }
       fill(255, menu3opacity);
       textAlign(LEFT);
-      text(s.toUpperCase(), width/2-72, height/2+30);
+      text(s.toLowerCase(), width/2-72, height/2+30);
       if (b_timer.check(int(random(2000.0, 4000.0))) == true) {
         if (b.length() > 0) {
           s = s + b.substring(0, 1);
-          cursorStart = cursorStart + cursorMove;
+          cursorStart = cursorStart + characterWidth;
           b = b.substring(1, b.length());
         }
         b_timer.start();
@@ -621,7 +547,7 @@ void draw() {
       if (newLevel) {
         s = "";
         newLevel = false;
-        cursorStart = 300-71;
+        cursorStart = originalCursorStart;
         solved = true;
       }
       if (second() % 2 == 0) {
@@ -630,11 +556,11 @@ void draw() {
       }
       fill(255, menu3opacity);
       textAlign(LEFT);
-      text(s.toUpperCase(), width/2-72, height/2+30);
+      text(s.toLowerCase(), width/2-72, height/2+30);
       if (b_timer.check(int(random(2000.0, 4000.0))) == true) {
         if (b.length() > 0) {
           s = s + b.substring(0, 1);
-          cursorStart = cursorStart + cursorMove;
+          cursorStart = cursorStart + characterWidth;
           b = b.substring(1, b.length());
         }
         b_timer.start();
@@ -698,8 +624,8 @@ void keyReleased() {
         tooMuchText.play();
       }
     }
-    if (key != BACKSPACE && key != DELETE && cursorStart <(300-71+126)) {
-      cursorStart = cursorStart + cursorMove;
+    if (key != BACKSPACE && key != DELETE && cursorStart < originalCursorStart + (characterWidth * 8)) {
+      cursorStart = cursorStart + characterWidth;
     }
   } else if (droga == 3 && livello == 1 && key != BACKSPACE && key != DELETE) {
     if (s.length() < 8) {    //meccanica di gioco primo livello cannabinoidi
@@ -740,13 +666,12 @@ void keyReleased() {
         tooMuchText.play();
       }
     }
-    if (key != BACKSPACE && key != DELETE && cursorStart <(300-71+126)) {
-      cursorStart = cursorStart + cursorMove;
+    if (key != BACKSPACE && key != DELETE && cursorStart < originalCursorStart + (characterWidth * 8)) {
+      cursorStart = cursorStart + characterWidth;
     }
   } else if (droga == 1 && livello == 2 && key != BACKSPACE && key != DELETE) {
     if (key != BACKSPACE && key != DELETE) {
-      if (s.length() < 8) {
-
+      /* Key if's */ if (s.length() < 8) {
         if(key == 'q'){
           s = s + 'w';
         }
@@ -845,10 +770,13 @@ void keyReleased() {
 
         if(key == ' '){
           s = s + ' ';
-        } //QUI DENTRO CI SONO MILLE IF
+        }
       } else {
         tooMuchText.play();
       }
+    }
+    if (key != BACKSPACE && key != DELETE && cursorStart < originalCursorStart + (characterWidth * 8)) {
+      cursorStart = cursorStart + characterWidth;
     }
   } else if (droga == 1 && livello == 3 && key != BACKSPACE && key != DELETE) {
     if (key != BACKSPACE && key != DELETE) {
@@ -864,8 +792,8 @@ void keyReleased() {
         tooMuchText.play();
       }
     }
-    if (key != BACKSPACE && key != DELETE && cursorStart <(300-71+126)) {
-      cursorStart = cursorStart + cursorMove;
+    if (key != BACKSPACE && key != DELETE && cursorStart < originalCursorStart + (characterWidth * 8)) {
+      cursorStart = cursorStart + characterWidth;
     }
   }
 
@@ -873,14 +801,14 @@ void keyReleased() {
     droga = 0;
     livello = 0;
     s = "";
-    cursorStart = 300-71;
+    cursorStart = originalCursorStart;
   }
 }
 
 void keyPressed() {
   if (key == BACKSPACE || key == DELETE) {
     s = "";
-    cursorStart = 300-71;
+    cursorStart = originalCursorStart;
     solved = true;
     menu3size = 24;
     menu3opacity = 255;

@@ -1,7 +1,6 @@
 class Timer {
 
   boolean state = false;
-  //ts = timestamp
   int ts;
 
   void start(){

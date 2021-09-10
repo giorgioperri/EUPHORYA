@@ -18,10 +18,10 @@ import java.io.IOException;
 public class EUPHORYA extends PApplet {
 
 //variabile per capire quale droga è stata scelta
-int droga = 1;
+int droga = 0;
 
 //variabile per capire in che livello si trova l'utente
-int livello = 3;
+int livello = 0;
 
 //variabile per la chiusura nel glitch d1l3
 int quitTimer = 0;
@@ -84,6 +84,10 @@ boolean newLevel = true;
 //variabile contatore terzo livello cannabinoidi
 int contatore = 0;
 
+//variabile sfondo livelli allucinogeni
+float angolo;
+int illusionIndex = 20;
+
 int xfine = 150;
 int xiniz = 25;
 int yfine = 50;
@@ -108,7 +112,6 @@ boolean gameOver = true;
   //carico il file audio "lvlSolved"
   lvlSolved = new SoundFile(this, "lvlSolved.wav");
   b_timer = new Timer();
-
   cursorStart = width/2 - 70;
   originalCursorStart = width/2 - 70;
 }
@@ -268,6 +271,29 @@ boolean gameOver = true;
         cursorStart = originalCursorStart;
         solved = true;
       }
+
+      float xpunto = width;
+      float diametro = 150;
+      int numeroDiPunti = 100;
+
+      pushMatrix();
+        noStroke();
+        fill(255, 255, 255);
+        translate(width/2, height/2);
+
+        for(int a = 0; a < 360; a+=45) {
+          rotate(radians(a));
+          pushMatrix();
+            for(int i = 0; i < numeroDiPunti; i++) {
+              scale(0.95f);
+              rotate(radians(angolo));
+              ellipse(xpunto, 0, diametro, diametro);
+            }
+          popMatrix();
+        }
+        angolo += 0.03f;
+      popMatrix();
+
       textAlign(LEFT);
       textSize(20);
       text("Level 1", 10, 20);
@@ -302,6 +328,32 @@ boolean gameOver = true;
         cursorStart = originalCursorStart;
         solved = true;
       }
+
+      float xpunto = width;
+      float diametro = 150;
+      int numeroDiPunti = 100;
+
+      pushMatrix();
+        noStroke();
+        fill(255, 255, 255);
+        translate(width/2, height/2);
+
+        for(int a = 0; a < 360; a+=45) {
+          rotate(radians(a));
+          pushMatrix();
+            if(second() % 2 == 0) {
+              fill(random(0,255),random(0,255),random(0,255));
+            }
+            for(int i = 0; i < numeroDiPunti; i++) {
+              scale(0.95f);
+              rotate(radians(angolo));
+              ellipse(xpunto, 0, diametro, diametro);
+            }
+          popMatrix();
+        }
+        angolo += 0.03f;
+      popMatrix();
+
       textAlign(LEFT);
       textSize(20);
       text("Level 2", 10, 20);

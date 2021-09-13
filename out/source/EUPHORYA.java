@@ -394,6 +394,8 @@ int livello = 0;
             lvlComplete.play();
             cursor(ARROW);
           }
+        } else {
+          cursor(ARROW);
         }
       }
     }
@@ -453,7 +455,10 @@ int livello = 0;
             livello = 2;
             lvlComplete.play();
             cursor(ARROW);
+            newLevel = true;
           }
+        } else {
+          cursor(ARROW);
         }
       }
     }
@@ -510,10 +515,16 @@ int livello = 0;
         textAlign(CENTER);
         text("DONE", width/2, height/2+115);
         //click per livello 2
-        if (mouseX > width/2 - 35 && mouseX < width/2 + 35 && mouseY > height/2+95 && mouseY < height/2+115 && mousePressed) {
-          livello = 3;
-          lvlComplete.play();
-          newLevel = true;
+        if (mouseX > width/2 - 35 && mouseX < width/2 + 35 && mouseY > height/2+95 && mouseY < height/2+115) {
+          cursor(HAND);
+          if(mousePressed) {
+            cursor(ARROW);
+            livello = 3;
+            lvlComplete.play();
+            newLevel = true;
+          }
+        } else {
+          cursor(ARROW);
         }
       }
     }
@@ -615,17 +626,22 @@ int livello = 0;
         text("DONE", width/2, height/2+115);
         textAlign(LEFT);
         //click per livello 2
-        if (mouseX > width/2 - 35 && mouseX < width/2 + 35 && mouseY > height/2+95 && mouseY < height/2+115 && mousePressed) {
-          livello = 1;
-          lvlComplete.play();
+        if (mouseX > width/2 - 35 && mouseX < width/2 + 35 && mouseY > height/2+95 && mouseY < height/2+115) {
+          cursor(HAND);
+          if(mousePressed) {
+            cursor(ARROW);
+            livello = 1;
+            lvlComplete.play();
+            s = "";
+          }
         }
       }
-    }
-
-    for (int i = 0; i < amountOfStrings; i++) {
-      textSize(22);
-      fill(255, 50);
-      text(paranoiaStrings[i], paranoiaPositionsX[i], paranoiaPositionsY[i]);
+    } else {
+      for (int i = 0; i < amountOfStrings; i++) {
+        textSize(22);
+        fill(255, 50);
+        text(paranoiaStrings[i], paranoiaPositionsX[i], paranoiaPositionsY[i]);
+      }
     }
 
     if(livello == 1) {
@@ -655,9 +671,15 @@ int livello = 0;
         textAlign(CENTER);
         text("DONE", width/2, height/2+115);
         //click per livello 2
-        if (mouseX > width/2 - 35 && mouseX < width/2 + 35 && mouseY > height/2+95 && mouseY < height/2+115 && mousePressed) {
-          livello = 1;
-          lvlComplete.play();
+        if (mouseX > width/2 - 35 && mouseX < width/2 + 35 && mouseY > height/2+95 && mouseY < height/2+115) {
+          cursor(HAND);
+          if(mousePressed) {
+            cursor(ARROW);
+            livello = 1;
+            lvlComplete.play();
+          }
+        } else {
+          cursor(ARROW);
         }
       }
     }
@@ -697,10 +719,16 @@ int livello = 0;
         textAlign(CENTER);
         text("DONE", width/2, height/2+115);
         //click per livello 2
-        if (mouseX > width/2 - 35 && mouseX < width/2 + 35 && mouseY > height/2+95 && mouseY < height/2+115 && mousePressed) {
-          livello = livello + 1;
-          lvlComplete.play();
-          newLevel = true;
+        if (mouseX > width/2 - 35 && mouseX < width/2 + 35 && mouseY > height/2+95 && mouseY < height/2+115) {
+          cursor(HAND);
+          if(mousePressed) {
+            cursor(ARROW);
+            livello = livello + 1;
+            lvlComplete.play();
+            newLevel = true;
+          }
+        } else {
+          cursor(ARROW);
         }
       }
     }
@@ -755,12 +783,18 @@ int livello = 0;
         textAlign(CENTER);
         text("DONE", width/2, height/2+115);
         //click per livello 2
-        if (mouseX > width/2 - 35 && mouseX < width/2 + 35 && mouseY > height/2+95 && mouseY < height/2+115 && mousePressed) {
-          livello = livello + 1;
-          lvlComplete.play();
-          newLevel = true;
-          menu3size = 24;
-          menu3opacity = 255;
+        if (mouseX > width/2 - 35 && mouseX < width/2 + 35 && mouseY > height/2+95 && mouseY < height/2+115) {
+          cursor(HAND);
+          if(mousePressed){
+            livello = livello + 1;
+            lvlComplete.play();
+            newLevel = true;
+            menu3size = 24;
+            menu3opacity = 255;
+            cursor(ARROW);
+          }
+        } else {
+          cursor(ARROW);
         }
       }
     }
@@ -815,10 +849,16 @@ int livello = 0;
         textAlign(CENTER);
         text("DONE", width/2, height/2+115);
         //click per livello 2
-        if (mouseX > width/2 - 35 && mouseX < width/2 + 35 && mouseY > height/2+95 && mouseY < height/2+115 && mousePressed) {
-          livello = livello + 1;
-          lvlComplete.play();
-          newLevel = true;
+        if (mouseX > width/2 - 35 && mouseX < width/2 + 35 && mouseY > height/2+95 && mouseY < height/2+115) {
+          cursor(HAND);
+          if(mousePressed) {
+            cursor(ARROW);
+            livello = livello + 1;
+            lvlComplete.play();
+            newLevel = true;
+          }
+        } else {
+          cursor(ARROW);
         }
       }
     }
@@ -1024,16 +1064,18 @@ int livello = 0;
     if (key != BACKSPACE && key != DELETE && cursorStart < originalCursorStart + (characterWidth * 8)) {
       cursorStart = cursorStart + characterWidth;
     }
-  } else if (droga == 1 && livello == 4 && key != BACKSPACE && key != DELETE) {
+  } else if (droga != 0 && livello == 4 && key != BACKSPACE && key != DELETE) {
     if(key == 'm') {
       droga = 0;
       livello = 0;
+      s = "";
+      cursorStart = originalCursorStart; 
     } else {
       exit();
     }
   } 
   
-  if (droga == 2 && livello == 0 && key != BACKSPACE && key != DELETE) {
+  if (droga == 2 && livello != 0 && key != BACKSPACE && key != DELETE) {
     if(amountOfStrings < 12 && s.length() < 8) {
       amountOfStrings++;
     }

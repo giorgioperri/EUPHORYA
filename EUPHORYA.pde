@@ -1,88 +1,97 @@
 //variabile per capire quale droga è stata scelta
-int droga = 999;
+int droga = 2;
 
 //variabile per capire in che livello si trova l'utente
 int livello = 0;
 
-//variabile per la chiusura nel glitch d1l3
-int quitTimer = 0;
+/* variables */
+  //variabile per la chiusura nel glitch d1l3
+  int quitTimer = 0;
 
-// variabile per info sul gioco
-boolean gameInfo = false;
+  // variabile per info sul gioco
+  boolean gameInfo = false;
 
-// variabile per mostrare l'avviso per contenuti che possono suscitare reazioni epilettici
-boolean epilepsyWarning = true;
-Timer warning_timer;
+  // variabile per mostrare l'avviso per contenuti che possono suscitare reazioni epilettici
+  boolean epilepsyWarning = false;
+  Timer warning_timer;
 
-//variabile font
-PFont font;
+  //variabile font
+  PFont font;
 
-//variabili per l'animazione del terzo elemento del menù
-float menu3size = 24;
-float menu3opacity = 255;
-boolean decreasing = true;
+  //variabili per l'animazione del terzo elemento del menù
+  float menu3size = 24;
+  float menu3opacity = 255;
+  boolean decreasing = true;
 
-//variabili per importare e impostare il suono
-import processing.sound.*;
-SoundFile menuMove;
-SoundFile tooMuchText;
-SoundFile lvlSelect;
-SoundFile lvlComplete;
-SoundFile lvlSolved;
-boolean playSound = true;
+  //variabili per importare e impostare il suono
+  import processing.sound.*;
+  SoundFile menuMove;
+  SoundFile tooMuchText;
+  SoundFile lvlSelect;
+  SoundFile lvlComplete;
+  SoundFile lvlSolved;
+  boolean playSound = true;
 
-//imposto alcune variabili per l'hover del primo elemento del menù
-boolean hover1 = true;
-float menu1Opacity = 255;
-float hoverMenu1Pos = 0;
+  //imposto alcune variabili per l'hover del primo elemento del menù
+  boolean hover1 = true;
+  float menu1Opacity = 255;
+  float hoverMenu1Pos = 0;
 
-//variabili primo livello allucinogeni
-String s = "";
- 
-//dichiaro un timer
-Timer b_timer;
+  //variabili primo livello allucinogeni
+  String s = "";
+  
+  //dichiaro un timer
+  Timer b_timer;
 
-// stringa di accumulo cannabinoidi
-String b = ""; 
+  // stringa di accumulo cannabinoidi
+  String b = ""; 
 
-// queste servono per il movimento del cursorino
-float cursorStart;
-float originalCursorStart;
-float characterWidth = 18;
+  // queste servono per il movimento del cursorino
+  float cursorStart;
+  float originalCursorStart;
+  float characterWidth = 18;
 
-//imposto alcune variabili per la posizione del secondo elemento del menù
-float menu2x = width/2;
-float menu2y = height/2 + 50;
+  //imposto alcune variabili per la posizione del secondo elemento del menù
+  float menu2x = width/2;
+  float menu2y = height/2 + 50;
 
-//variabile per passare liv 1
-String DrogaLv0 = "i'm fine";
+  //variabile per passare liv 1
+  String DrogaLv0 = "i'm fine";
 
-//il lv3 di allucinogeni è strano serve una stringa (a quanto pare)
-String stringalv3 = "I'M FINE";
+  //il lv3 di allucinogeni è strano serve una stringa (a quanto pare)
+  String stringalv3 = "I'M FINE";
 
-//dichiaro la booleana che permette al suono lvlSolved di ripetersi più volte
-boolean solved = true;
+  //dichiaro la booleana che permette al suono lvlSolved di ripetersi più volte
+  boolean solved = true;
 
-//varibili lv1d3
-float msAttuali;
+  //varibili lv1d3
+  float msAttuali;
 
-//variabile per accertamento nuvo Livello
-boolean newLevel = true;
+  //variabile per accertamento nuvo Livello
+  boolean newLevel = true;
 
-//variabile contatore terzo livello cannabinoidi
-int contatore = 0;
+  //variabile contatore terzo livello cannabinoidi
+  int contatore = 0;
 
-//variabile sfondo livelli allucinogeni
-float angolo;
-int illusionIndex = 20;
+  //variabile sfondo livelli allucinogeni
+  float angolo;
+  int illusionIndex = 20;
 
-int xfine = 150;
-int xiniz = 25;
-int yfine = 50;
-int yiniz = 55;
-int ciclofine;
+  int xfine = 150;
+  int xiniz = 25;
+  int yfine = 50;
+  int yiniz = 55;
+  int ciclofine;
 
-boolean gameOver = true;
+  boolean gameOver = true;
+
+  String[] paranoiaStrings = {"it doesn't make sense for you to love me...", "i just want to sleep until I feel better", "i miss the person I used to be", "i feel lost inside of myself", "why does everything always feel worse at night?", "something inside me just...broke...", "it feels like this is never going to end", "the pain is so heavy that I can’t get away from it", "all i really want is to be found", "i thought by masking them, the feelings might disappear", "why can't i just let myself be happy?", "it’s not just a bad day"};
+
+  int[] paranoiaPositionsX = new int[12];
+  int[] paranoiaPositionsY = new int[12];
+
+  int amountOfStrings = 0;
+/*endregion*/
 
 void setup() {
   fullScreen();
@@ -103,13 +112,110 @@ void setup() {
   warning_timer = new Timer();
   cursorStart = width/2 - 70;
   originalCursorStart = width/2 - 70;
+
+  paranoiaPositionsX[0] = width/2 ;
+  paranoiaPositionsX[1] = int(width / 1.6);
+  paranoiaPositionsX[2] = int(width / 1.3);
+  paranoiaPositionsX[3] = int(width / 1.2);
+  paranoiaPositionsX[4] = width/12;
+  paranoiaPositionsX[5] = width/3;
+  paranoiaPositionsX[6] = width/14;
+  paranoiaPositionsX[7] = width/4;
+  paranoiaPositionsX[8] = int(width/1.5);
+  paranoiaPositionsX[9] = int(width/16);
+  paranoiaPositionsX[10] = int(width/4);
+  paranoiaPositionsX[11] = int(width/1.4);
+
+  paranoiaPositionsY[0] = int(height / 6);
+  paranoiaPositionsY[1] = height - 180;
+  paranoiaPositionsY[2] = int(height / 3);
+  paranoiaPositionsY[3] = height - 80;
+  paranoiaPositionsY[4] = int(height / 2);
+  paranoiaPositionsY[5] = int(height / 1.6);
+  paranoiaPositionsY[6] = 120;
+  paranoiaPositionsY[7] = int(height / 1.2);
+  paranoiaPositionsY[8] = int(height / 2.3);
+  paranoiaPositionsY[9] = int(height / 1.4);
+  paranoiaPositionsY[10] = int(height / 4);
+  paranoiaPositionsY[11] = int(height / 1.7);
 }
 
 void draw() {
   background(0);
   fill(255);
 
-  //MENU PRINCIPALE
+  //ANCHOR epilepsy warning
+  if (epilepsyWarning) {
+    fill(0);
+    rect(0, 0, width, height);
+ 
+    fill(255);
+    textAlign(CENTER);
+    textSize(48);
+    text("WARNING", width/2, height/2-200);
+
+    textSize(24);
+
+    text("This experience contains fast flashing images and colors. \n It may cause discomfort and trigger seizures for individuals with photosensitive epilepsy. \n \n Discretion is advised. \n \n EUPHORYA is born with the purpose of shining a light on the bad effects of drugs on the human brain and body. \n \n Drug consumption is in any way discouraged and to be avoided at all costs.", 
+        width/2, height/2 - 100);
+
+    if(warning_timer.check(10000)) {
+      textSize(36);
+      text("I UNDERSTOOD", width/2, height - 400);
+      //if (mouseX > width/2 - 75 && mouseX < width/2 +75 && mouseY > height- 400 - 15 && mouseY < height - 400 - 15) { 
+      if (mouseX > width/2 - 115 && mouseX < width/2 + 115 && mouseY > height - 425 && mouseY < height - 395) { 
+        //il mouse si trova sul primo elemento
+        //cambio il cursore del mouse
+        cursor(HAND);
+        //riproduco l'elemento musicale
+        if (playSound) {
+          menuMove.play();
+          playSound = false;
+        }
+        //imposto la logica per la quale il click mi porta a quella sezione del codice
+        if (mousePressed) {
+          droga = 0;
+          lvlSelect.play();
+          epilepsyWarning = false;
+        }
+      } else {
+        // il muose non è su nessun pulsante
+        playSound = true;
+        cursor(ARROW);
+      }
+    }
+  }
+
+  //ANCHOR gameInfo
+  if(gameInfo) {
+    fill(0);
+    rect(0,0, width, height);
+
+    fill(255);
+    textAlign(CENTER);
+    textSize(48);
+    text("EUPHORIA", width/2, 100);
+
+    textSize(24);
+    text("v.2.0.0", width/2, 150);
+
+    text("This game was first produced in 2018 as an Interaction Design exam at Quasar Institute for Advanced Design \n by Giorgio Perri as the game developer and Marco Preti as the concept artist and copywriter. \n \n \n The institute asked us to update the project several times for showcasing purposes, hence the need for version control. \n\n\n In September 2021, the game was largely updated by Giorgio Perri \n with the purpose of creating a game programming portfolio, resulting in version 2.0.0 \n\n\n As young adults who are largely exposed to the world of drugs and alcohol, we decided \n to try and raise awareness on this really delicate subject. \n\n\n We strongly discourage not only young people, but everyone from consuming drugs or alcohol, \n and we strongly advise everyone to never feel guilty or ashamed about asking for help if needed. \n\n Some useful numbers: \n\n USA: 866.235.4572 \n Italy: 800.189.433 \n UK: 0300.330.0659\n\n\n It's never too late to save your life and the one of people around you. \n\n ----- \n\n Levels in EUPHORIA do not simply represent your progress in the game. Each of \n the three levels relatively represent a short, medium, and long term usage of the selected drug category. \n Levels drastically increase in difficulty, and every third level contains a trick that will make you lose all progress. \n\n Pay extra attention to those and if you get frustrated, remember: that's what drugs do to your brain.", 
+        width/2, height/2 - 325);
+
+    textSize(36);
+    text("BACK", width/2, height - 50);
+    if (mouseX > width/2 - 65 && mouseX < width/2 + 65 && mouseY > height - 75 && mouseY < height - 25) { 
+      
+      //imposto la logica per la quale il click mi porta a quella sezione del codice
+      if (mousePressed) {
+        droga = 0;
+        gameInfo = false;
+      }
+      cursor(HAND);
+    }
+  }
+  
+  //ANCHOR menu
   if (droga == 0) {
     //scrivo il titolo del gioco
     textAlign(CENTER);
@@ -164,6 +270,7 @@ void draw() {
       if (mousePressed) {
         droga = 1;
         lvlSelect.play();
+        cursor(ARROW);
       }
     } else if (mouseX > width/2 - 60 && mouseX < width/2 + 60 && mouseY > height/2+35 && mouseY < height/2+50) { //il mouse si trova sul secondo elemento
       //cambio il cursore del mouse
@@ -186,6 +293,7 @@ void draw() {
       if (mousePressed) {
         droga = 2;
         lvlSelect.play();
+        cursor(ARROW);
       }
     } else if (mouseX > width/2 - 75 && mouseX < width/2 + 75 && mouseY > height/2 + 85 && mouseY < height/2 + 100) { //il mouse si trova sul terzo elemento
       //cambio il cursore del mouse
@@ -213,6 +321,7 @@ void draw() {
       if (mousePressed) {
         droga = 3;
         lvlSelect.play();
+        cursor(ARROW);
       }
       // fill(255);
     } else if (mouseX > width - 230 && mouseY > height - 50) { // tasto info about the game
@@ -221,6 +330,7 @@ void draw() {
       if (mousePressed) {
         droga = 999;
         gameInfo = true;
+        cursor(ARROW);
       }
     } else {
       // il muose non è su nessun pulsante
@@ -258,9 +368,13 @@ void draw() {
         textAlign(CENTER);
         text("DONE", width/2, height/2+115);
         //click per livello 2
-        if (mouseX > width/2 - 35 && mouseX < width/2 + 35 && mouseY > height/2+95 && mouseY < height/2+115 && mousePressed) {
-          livello = 1;
-          lvlComplete.play();
+        if (mouseX > width/2 - 35 && mouseX < width/2 + 35 && mouseY > height/2+95 && mouseY < height/2+115) {
+          cursor(HAND);
+          if(mousePressed) {
+            livello = 1;
+            lvlComplete.play();
+            cursor(ARROW);
+          }
         }
       }
     }
@@ -314,10 +428,13 @@ void draw() {
         textAlign(CENTER);
         text("DONE", width/2, height/2+115);
         //click per livello 2
-        if (mouseX > width/2 - 35 && mouseX < width/2 + 35 && mouseY > height/2+95 && mouseY < height/2+115 && mousePressed) {
-          livello = 2;
-          lvlComplete.play();
-          newLevel = true;
+        if (mouseX > width/2 - 35 && mouseX < width/2 + 35 && mouseY > height/2+95 && mouseY < height/2+115) {
+          cursor(HAND);
+          if(mousePressed) {
+            livello = 2;
+            lvlComplete.play();
+            cursor(ARROW);
+          }
         }
       }
     }
@@ -459,16 +576,40 @@ void draw() {
   if (droga == 2 ) {
     if (livello == 0) {
       textAlign(CENTER);
-      textSize(48);
-      text("COMING SOON", width/2, height/2);
-      textAlign(CENTER);
+      textSize(30);
+      text("How to play:", width/2, height/2-150);
+      textSize(30);
+      text("Just write \"i'm fine\"", width/2, height/2-100);
       textSize(36);
-      text("BACK", width/2, height/2+150);
-      //click per livello 2
-      if (mouseX > width/2 - 35 && mouseX < width/2 + 35 && mouseY > height/2+130 && mouseY < height/2+150 && mousePressed) {
-        droga = 0;
-        tooMuchText.play();
+      if (second() % 2 == 0) {
+        fill(255);
+        rect(cursorStart, height/2+35, 14, 3);
       }
+      textAlign(LEFT);
+      text(s.toLowerCase(), width/2-72, height/2+30);
+      if (DrogaLv0.equals(s)) {
+        if (solved) {
+          lvlSolved.play();
+          solved = false;
+        }
+        textAlign(CENTER);
+        text("DONE", width/2, height/2+115);
+        textAlign(LEFT);
+        //click per livello 2
+        if (mouseX > width/2 - 35 && mouseX < width/2 + 35 && mouseY > height/2+95 && mouseY < height/2+115 && mousePressed) {
+          livello = 1;
+          lvlComplete.play();
+        }
+      }
+    }
+
+    for (int i = 0; i < amountOfStrings; i++) {
+      textSize(22);
+      fill(255, 50);
+      text(paranoiaStrings[i], paranoiaPositionsX[i], paranoiaPositionsY[i]);
+    }
+
+    if(livello == 1) {
     }
   }
 
@@ -682,84 +823,6 @@ void draw() {
     }
   }
 
-  //ANCHOR epilepsy warning
-  if (epilepsyWarning) {
-    fill(0);
-    rect(0, 0, width, height);
- 
-    fill(255);
-    textAlign(CENTER);
-    textSize(48);
-    text("WARNING", width/2, height/2-200);
-
-    textSize(24);
-
-    text("This experience contains fast flashing images and colors. \n It may cause discomfort and trigger seizures for individuals with photosensitive epilepsy. \n \n Discretion is advised. \n \n EUPHORYA is born with the purpose of shining a light on the bad effects of drugs on the human brain and body. \n \n Drug consumption is in any way discouraged and to be avoided at all costs.", 
-        width/2, height/2 - 100);
-
-    if(warning_timer.check(1000)) {
-      textSize(36);
-      text("I UNDERSTOOD", width/2, height - 400);
-      //if (mouseX > width/2 - 75 && mouseX < width/2 +75 && mouseY > height- 400 - 15 && mouseY < height - 400 - 15) { 
-      if (mouseX > width/2 - 115 && mouseX < width/2 + 115 && mouseY > height - 425 && mouseY < height - 395) { 
-        //il mouse si trova sul primo elemento
-        //cambio il cursore del mouse
-        cursor(HAND);
-        //riproduco l'elemento musicale
-        if (playSound) {
-          menuMove.play();
-          playSound = false;
-        }
-        //imposto la logica per la quale il click mi porta a quella sezione del codice
-        if (mousePressed) {
-          droga = 0;
-          lvlSelect.play();
-          epilepsyWarning = false;
-        }
-      } else {
-        // il muose non è su nessun pulsante
-        playSound = true;
-        cursor(ARROW);
-      }
-    }
-  }
-
-  //ANCHOR gameInfo
-  if(gameInfo) {
-    fill(0);
-    rect(0,0, width, height);
-
-    fill(255);
-    textAlign(CENTER);
-    textSize(48);
-    text("EUPHORIA", width/2, 100);
-
-    textSize(24);
-    text("v.2.0.0", width/2, 150);
-
-    text("This game was first produced in 2018 as an Interaction Design exam at Quasar Institute for Advanced Design \n by Giorgio Perri as the game developer and Marco Preti as the concept artist and copywriter. \n \n \n The institute asked us to update the project several times for showcasing purposes, hence the need for version control. \n\n\n In September 2021, the game was largely updated by Giorgio Perri \n with the purpose of creating a game programming portfolio, resulting in version 2.0.0 \n\n\n As young adults who are largely exposed to the world of drugs and alcohol, we decided \n to try and raise awareness on this really delicate subject. \n\n\n We strongly discourage not only young people, but everyone from consuming drugs or alcohol, \n and we strongly advise everyone to never feel guilty or ashamed about asking for help if needed. \n\n Some useful numbers: \n\n USA: 866.235.4572 \n Italy: 800.189.433 \n UK: 0300.330.0659\n\n\n It's never too late to save your life and the one of people around you. \n\n ----- \n\n Levels in EUPHORIA do not simply represent your progress in the game. Each of \n the three levels relatively represent a short, medium, and long term usage of the selected drug category. \n Levels drastically increase in difficulty, and every third level contains a trick that will make you lose all progress. \n\n Pay extra attention to those and if you get frustrated, remember: that's what drugs do to your brain.", 
-        width/2, height/2 - 325);
-
-    textSize(36);
-    text("BACK", width/2, height - 50);
-    if (mouseX > width/2 - 65 && mouseX < width/2 + 65 && mouseY > height - 75 && mouseY < height - 25) { 
-        cursor(HAND);
-        //riproduco l'elemento musicale
-        if (playSound) {
-          menuMove.play();
-          playSound = false;
-        }
-        //imposto la logica per la quale il click mi porta a quella sezione del codice
-        if (mousePressed) {
-          droga = 0;
-          gameInfo = false;
-        }
-      } else {
-        // il muose non è su nessun pulsante
-        playSound = true;
-        cursor(ARROW);
-      }
-  }
 }
 
 void keyReleased() {
@@ -948,6 +1011,12 @@ void keyReleased() {
       livello = 0;
     } else {
       exit();
+    }
+  } 
+  
+  if (droga == 2 && livello == 0 && key != BACKSPACE && key != DELETE) {
+    if(amountOfStrings < 12 && s.length() < 8) {
+      amountOfStrings++;
     }
   }
 

@@ -30,6 +30,10 @@ int livello = 0;
   SoundFile lvlSelect;
   SoundFile lvlComplete;
   SoundFile lvlSolved;
+  
+  SoundFile tw1;
+  SoundFile tw2;
+
   boolean playSound = true;
 
   //imposto alcune variabili per l'hover del primo elemento del menù
@@ -108,6 +112,11 @@ void setup() {
   lvlComplete = new SoundFile(this, "lvlComplete.wav");
   //carico il file audio "lvlSolved"
   lvlSolved = new SoundFile(this, "lvlSolved.wav");
+
+  //carico i suoni della macchina da scrivere
+  tw1 = new SoundFile(this, "tw1.wav");
+  tw2 = new SoundFile(this, "tw1.wav");
+
   b_timer = new Timer();
   warning_timer = new Timer();
   cursorStart = width/2 - 70;
@@ -131,7 +140,7 @@ void setup() {
   paranoiaPositionsY[2] = int(height / 3);
   paranoiaPositionsY[3] = height - 80;
   paranoiaPositionsY[4] = int(height / 2);
-  paranoiaPositionsY[5] = int(height / 1.6);
+  paranoiaPositionsY[5] = int(height / 1.3);
   paranoiaPositionsY[6] = 120;
   paranoiaPositionsY[7] = int(height / 1.2);
   paranoiaPositionsY[8] = int(height / 2.3);
@@ -623,9 +632,49 @@ void draw() {
         fill(255, 50);
         text(paranoiaStrings[i], paranoiaPositionsX[i], paranoiaPositionsY[i]);
       }
+      fill(255);
     }
 
     if(livello == 1) {
+       if (newLevel) {
+        s = "";
+        newLevel = false;
+        cursorStart = originalCursorStart;
+        solved = true;
+      }
+
+      textAlign(LEFT);
+      textSize(20);
+      text("Level 1", 10, 20);
+      textAlign(CENTER);
+      textSize(36);
+      if (second() % 2 == 0) {
+        fill(255);
+        rect(cursorStart, height/2+35, 14, 3);
+      }
+      textAlign(LEFT);
+      text(s.toLowerCase(), width/2-72, height/2+30);
+      if (DrogaLv0.equals(s)) {
+        if (solved) {
+          lvlSolved.play();
+          solved = false;
+        }
+        textAlign(CENTER);
+        text("DONE", width/2, height/2+115);
+        textAlign(LEFT);
+        //click per livello 2
+        if (mouseX > width/2 - 35 && mouseX < width/2 + 35 && mouseY > height/2+95 && mouseY < height/2+115) {
+          cursor(HAND);
+          if(mousePressed) {
+            livello = 2;
+            lvlComplete.play();
+            cursor(ARROW);
+            newLevel = true;
+          }
+        } else {
+          cursor(ARROW);
+        }
+      }
     }
   }
 
@@ -704,7 +753,7 @@ void draw() {
           cursor(HAND);
           if(mousePressed) {
             cursor(ARROW);
-            livello = livello + 1;
+            livello = 1;
             lvlComplete.play();
             newLevel = true;
           }
@@ -767,7 +816,7 @@ void draw() {
         if (mouseX > width/2 - 35 && mouseX < width/2 + 35 && mouseY > height/2+95 && mouseY < height/2+115) {
           cursor(HAND);
           if(mousePressed){
-            livello = livello + 1;
+            livello = 3;
             lvlComplete.play();
             newLevel = true;
             menu3size = 24;
@@ -834,7 +883,7 @@ void draw() {
           cursor(HAND);
           if(mousePressed) {
             cursor(ARROW);
-            livello = livello + 1;
+            livello = 4;
             lvlComplete.play();
             newLevel = true;
           }
@@ -862,7 +911,6 @@ void draw() {
       }
     }
   }
-
 }
 
 void keyReleased() {
@@ -1040,6 +1088,22 @@ void keyReleased() {
         s = s + key;
       } else {
         tooMuchText.play();
+      }
+    }
+    if (key != BACKSPACE && key != DELETE && cursorStart < originalCursorStart + (characterWidth * 8)) {
+      cursorStart = cursorStart + characterWidth;
+    }
+  } else if (droga == 2 && livello == 1 && key != BACKSPACE && key != DELETE) {
+    if (key != BACKSPACE && key != DELETE) {
+      if (s.length() < 8) {
+        s = s + key;
+      } else {
+        tooMuchText.play();
+      }
+      if(random(1) > 0.5) {
+        tw1.play();
+      } else {
+        tw2.play();
       }
     }
     if (key != BACKSPACE && key != DELETE && cursorStart < originalCursorStart + (characterWidth * 8)) {

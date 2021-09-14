@@ -24,6 +24,9 @@ int droga = 2;
 int livello = 0;
 
 /* variables */
+  //variabile contatore d2l2
+  int typedLettersLv2 = 0;
+
   //variabile per la chiusura nel glitch d1l3
   int quitTimer = 0;
 
@@ -52,7 +55,6 @@ int livello = 0;
   
   SoundFile tw1;
   SoundFile tw2;
-  SoundFile tw3;
 
   boolean playSound = true;
 
@@ -136,7 +138,6 @@ int livello = 0;
   //carico i suoni della macchina da scrivere
   tw1 = new SoundFile(this, "tw1.wav");
   tw2 = new SoundFile(this, "tw1.wav");
-  tw3 = new SoundFile(this, "tw1.wav");
 
   b_timer = new Timer();
   warning_timer = new Timer();
@@ -651,7 +652,18 @@ int livello = 0;
       for (int i = 0; i < amountOfStrings; i++) {
         textSize(22);
         fill(255, 50);
-        text(paranoiaStrings[i], paranoiaPositionsX[i], paranoiaPositionsY[i]);
+
+        if(livello == 1) {
+          text(paranoiaStrings[i], paranoiaPositionsX[i], paranoiaPositionsY[i]);
+        } else if (livello == 2) {
+
+          if(i + 1 <= typedLettersLv2) {
+            fill(random(255),random(255),random(255));
+            text(paranoiaStrings[i], (paranoiaPositionsX[i] + PApplet.parseInt(random(-5,5))), (paranoiaPositionsY[i]) + PApplet.parseInt(random(-5,5)));
+          } else {
+            text(paranoiaStrings[i], paranoiaPositionsX[i], paranoiaPositionsY[i]);
+          }
+        }
       }
       fill(255);
     }
@@ -688,6 +700,53 @@ int livello = 0;
           cursor(HAND);
           if(mousePressed) {
             livello = 2;
+            lvlComplete.play();
+            cursor(ARROW);
+            newLevel = true;
+          }
+        } else {
+          cursor(ARROW);
+        }
+      }
+    }
+
+    if(livello == 2) {
+      if (newLevel) {
+        s = "";
+        newLevel = false;
+        cursorStart = originalCursorStart;
+        solved = true;
+      }
+      textAlign(LEFT);
+      textSize(20);
+      text("Level 1", 10, 20);
+      textAlign(CENTER);
+      textSize(36);
+      if (second() % 2 == 0) {
+        fill(255);
+        rect(cursorStart, height/2+35, 14, 3);
+      }
+      textAlign(LEFT);
+      text(s.toLowerCase(), width/2-72, height/2+30);
+
+      if(s.equals("i'm ")) {
+        s = "i'm dying";
+        cursorStart += characterWidth * 5;
+      }
+
+      if (DrogaLv0.equals(s)) {
+        if (solved) {
+          lvlSolved.play();
+          solved = false;
+        }
+        textAlign(CENTER);
+        text("DONE", width/2, height/2+115);
+        textAlign(LEFT);
+        //click per livello 2
+        if (mouseX > width/2 - 35 && mouseX < width/2 + 35 && mouseY > height/2+95 && mouseY < height/2+115) {
+          cursor(HAND);
+          if(mousePressed) {
+            livello = 3;
             lvlComplete.play();
             cursor(ARROW);
             newLevel = true;
@@ -1116,6 +1175,23 @@ int livello = 0;
     }
   } else if (droga == 2 && livello == 1 && key != BACKSPACE && key != DELETE) {
     if (key != BACKSPACE && key != DELETE) {
+      if (s.length() < 8) {
+        s = s + key;
+      } else {
+        tooMuchText.play();
+      }
+      if(random(1) > 0.5f) {
+        tw1.play();
+      } else {
+        tw2.play();
+      }
+    }
+    if (key != BACKSPACE && key != DELETE && cursorStart < originalCursorStart + (characterWidth * 8)) {
+      cursorStart = cursorStart + characterWidth;
+    }
+  } else if (droga == 2 && livello == 2 && key != BACKSPACE && key != DELETE) {
+    if (key != BACKSPACE && key != DELETE) {
+      typedLettersLv2++;
       if (s.length() < 8) {
         s = s + key;
       } else {

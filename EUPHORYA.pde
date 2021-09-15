@@ -7,6 +7,9 @@ int livello = 0;
 /* variables */
   //variabile contatore d2l2
   int typedLettersLv2 = 0;
+  int timesTextHasChanged = 0;
+  int stringTimer = 0;
+  boolean playDrone = true;
 
   //variabile per la chiusura nel glitch d1l3
   int quitTimer = 0;
@@ -37,6 +40,9 @@ int livello = 0;
   SoundFile tw1;
   SoundFile tw2;
 
+  SoundFile ding;
+  SoundFile drone;
+
   boolean playSound = true;
 
   //imposto alcune variabili per l'hover del primo elemento del menù
@@ -44,8 +50,11 @@ int livello = 0;
   float menu1Opacity = 255;
   float hoverMenu1Pos = 0;
 
-  //variabili primo livello allucinogeni
+  //la stringa principale
   String s = "";
+
+  // la sottostring d2l2
+  String secondString = "";
   
   //dichiaro un timer
   Timer b_timer;
@@ -119,6 +128,9 @@ void setup() {
   //carico i suoni della macchina da scrivere
   tw1 = new SoundFile(this, "tw1.wav");
   tw2 = new SoundFile(this, "tw1.wav");
+
+  ding = new SoundFile(this, "ding.wav");
+  drone = new SoundFile(this, "drone.wav");
 
   b_timer = new Timer();
   warning_timer = new Timer();
@@ -708,33 +720,80 @@ void draw() {
         rect(cursorStart, height/2+35, 14, 3);
       }
       textAlign(LEFT);
-      text(s.toLowerCase(), width/2-72, height/2+30);
 
-      if(s.equals("i'm ")) {
-        s = "i'm dying";
-        cursorStart += characterWidth * 5;
+      int tempStringX = width/2-72;
+      int tempStringY = height/2+30;
+
+      if(s.equals("i'm ") && timesTextHasChanged == 0) {
+        s = "i'm done";
+        timesTextHasChanged = 1;
+        cursorStart += characterWidth * 4;
       }
 
-      if (DrogaLv0.equals(s)) {
-        if (solved) {
-          lvlSolved.play();
-          solved = false;
+      if(s.equals("i") && timesTextHasChanged == 1) {
+        s = "i need help";
+        timesTextHasChanged = 2;
+        cursorStart += characterWidth * 10;
+      }
+
+      if(s.equals("i'm done")) {
+         stringTimer++;
+
+         if(playDrone) {
+           drone.play();
+           playDrone = false;
+         }
+         
+         if(stringTimer == 100) {
+           s = "";
+           stringTimer = 0;
+           cursorStart = originalCursorStart;
+           ding.play();
+           playDrone = true;
+         }
+
+         fill(random(255), random(255), random(255));
+         tempStringX += random(-5,5);
+         tempStringY += random(-5,5);
+      }
+
+      if(s.equals("i need help")) {
+        stringTimer++;
+
+        if(playDrone) {
+          drone.play();
+          playDrone = false;
         }
-        textAlign(CENTER);
-        text("DONE", width/2, height/2+115);
-        textAlign(LEFT);
-        //click per livello 2
-        if (mouseX > width/2 - 35 && mouseX < width/2 + 35 && mouseY > height/2+95 && mouseY < height/2+115) {
-          cursor(HAND);
-          if(mousePressed) {
-            livello = 3;
-            lvlComplete.play();
-            cursor(ARROW);
-            newLevel = true;
-          }
-        } else {
-          cursor(ARROW);
+        
+        if(stringTimer == 100) {
+          s = "i'm     fine";
+          stringTimer = 0;
+          cursorStart = originalCursorStart + characterWidth * 4;
+          ding.play();
+          playDrone = true;
         }
+
+        fill(random(255), random(255), random(255));
+        tempStringX += random(-5,5);
+        tempStringY += random(-5,5);
+      }
+
+      text(s.toLowerCase(), tempStringX, tempStringY);
+
+      if(s.equals("i'm     fine")) {
+        int subStringX = tempStringX + int(characterWidth) * 4;
+        int subStringY = tempStringY;
+
+        fill(random(255), random(255), random(255));
+
+        subStringX += random(-5,5);
+        subStringY += random(-5,5);
+
+        text(secondString.toLowerCase(), subStringX, subStringY);
+      }
+
+      if(secondString.toLowerCase().equals("not")) {
+        livello = 3;
       }
     }
   }
@@ -1173,8 +1232,10 @@ void keyReleased() {
   } else if (droga == 2 && livello == 2 && key != BACKSPACE && key != DELETE) {
     if (key != BACKSPACE && key != DELETE) {
       typedLettersLv2++;
-      if (s.length() < 8) {
+      if (s.length() < 8 && !s.equals("i'm     fine")) {
         s = s + key;
+      } else if(secondString.length() < 3 && s.equals("i'm     fine")) {
+        secondString = secondString + key;
       } else {
         tooMuchText.play();
       }

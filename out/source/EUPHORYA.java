@@ -126,7 +126,7 @@ int livello = 0;
   int[] paranoiaPositionsY = new int[12];
 
   int amountOfStrings = 0;
-/*endregion*/
+/* end variables*/
 
  public void setup() {
   /* size commented out by preprocessor */;
@@ -159,24 +159,24 @@ int livello = 0;
   paranoiaPositionsX[0] = width/2 ;
   paranoiaPositionsX[1] = PApplet.parseInt(width / 1.6f);
   paranoiaPositionsX[2] = PApplet.parseInt(width / 1.3f);
-  paranoiaPositionsX[3] = PApplet.parseInt(width / 1.2f);
+  paranoiaPositionsX[3] = PApplet.parseInt(width / 1.4f);
   paranoiaPositionsX[4] = width/12;
   paranoiaPositionsX[5] = width/3;
   paranoiaPositionsX[6] = width/14;
-  paranoiaPositionsX[7] = width/4;
+  paranoiaPositionsX[7] = width/6;
   paranoiaPositionsX[8] = PApplet.parseInt(width/1.5f);
   paranoiaPositionsX[9] = PApplet.parseInt(width/16);
   paranoiaPositionsX[10] = PApplet.parseInt(width/4);
   paranoiaPositionsX[11] = PApplet.parseInt(width/1.4f);
 
   paranoiaPositionsY[0] = PApplet.parseInt(height / 6);
-  paranoiaPositionsY[1] = height - 180;
+  paranoiaPositionsY[1] = height - 50;
   paranoiaPositionsY[2] = PApplet.parseInt(height / 3);
-  paranoiaPositionsY[3] = height - 80;
+  paranoiaPositionsY[3] = height - 150;
   paranoiaPositionsY[4] = PApplet.parseInt(height / 2);
   paranoiaPositionsY[5] = PApplet.parseInt(height / 1.3f);
   paranoiaPositionsY[6] = 120;
-  paranoiaPositionsY[7] = PApplet.parseInt(height / 1.2f);
+  paranoiaPositionsY[7] = PApplet.parseInt(height / 1.1f);
   paranoiaPositionsY[8] = PApplet.parseInt(height / 2.3f);
   paranoiaPositionsY[9] = PApplet.parseInt(height / 1.4f);
   paranoiaPositionsY[10] = PApplet.parseInt(height / 4);
@@ -808,12 +808,16 @@ int livello = 0;
         subStringX += random(-5,5);
         subStringY += random(-5,5);
 
-        text(secondString.toLowerCase(), subStringX, subStringY);
+        text(secondString.toLowerCase(), subStringX - 80, subStringY);
       }
 
       if(secondString.toLowerCase().equals("not")) {
         livello = 3;
       }
+    }
+
+    if(livello == 3) {
+      
     }
   }
 

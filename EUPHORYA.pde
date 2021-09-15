@@ -107,7 +107,7 @@ int livello = 0;
   int[] paranoiaPositionsY = new int[12];
 
   int amountOfStrings = 0;
-/*endregion*/
+/* end variables*/
 
 void setup() {
   fullScreen();
@@ -140,24 +140,24 @@ void setup() {
   paranoiaPositionsX[0] = width/2 ;
   paranoiaPositionsX[1] = int(width / 1.6);
   paranoiaPositionsX[2] = int(width / 1.3);
-  paranoiaPositionsX[3] = int(width / 1.2);
+  paranoiaPositionsX[3] = int(width / 1.4);
   paranoiaPositionsX[4] = width/12;
   paranoiaPositionsX[5] = width/3;
   paranoiaPositionsX[6] = width/14;
-  paranoiaPositionsX[7] = width/4;
+  paranoiaPositionsX[7] = width/6;
   paranoiaPositionsX[8] = int(width/1.5);
   paranoiaPositionsX[9] = int(width/16);
   paranoiaPositionsX[10] = int(width/4);
   paranoiaPositionsX[11] = int(width/1.4);
 
   paranoiaPositionsY[0] = int(height / 6);
-  paranoiaPositionsY[1] = height - 180;
+  paranoiaPositionsY[1] = height - 50;
   paranoiaPositionsY[2] = int(height / 3);
-  paranoiaPositionsY[3] = height - 80;
+  paranoiaPositionsY[3] = height - 150;
   paranoiaPositionsY[4] = int(height / 2);
   paranoiaPositionsY[5] = int(height / 1.3);
   paranoiaPositionsY[6] = 120;
-  paranoiaPositionsY[7] = int(height / 1.2);
+  paranoiaPositionsY[7] = int(height / 1.1);
   paranoiaPositionsY[8] = int(height / 2.3);
   paranoiaPositionsY[9] = int(height / 1.4);
   paranoiaPositionsY[10] = int(height / 4);
@@ -795,6 +795,10 @@ void draw() {
       if(secondString.toLowerCase().equals("not")) {
         livello = 3;
       }
+    }
+
+    if(livello == 3) {
+      
     }
   }
 

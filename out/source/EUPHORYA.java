@@ -426,6 +426,7 @@ int livello = 0;
         if (mouseX > width/2 - 35 && mouseX < width/2 + 35 && mouseY > height/2+95 && mouseY < height/2+115) {
           cursor(HAND);
           if(mousePressed) {
+            s="";
             livello = 1;
             lvlComplete.play();
             cursor(ARROW);
@@ -1485,6 +1486,7 @@ int livello = 0;
  public void mouseReleased() {
   if(droga == 2 && livello == 3 && levelEndLives > 0 && !mouseIsOnValid && mouseX > width/2-300 && mouseX < width/2+500 && mouseY > height/2-180 && mouseY < height/2+150) {
     levelEndLives--;
+    ding.play();
     if(levelEndLives <= 0) {
       livello = 0;
       levelEndLives = 3;

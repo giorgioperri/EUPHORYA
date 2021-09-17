@@ -1,8 +1,8 @@
 //variabile per capire quale droga è stata scelta
-int droga = 2;
+int droga = 0;
 
 //variabile per capire in che livello si trova l'utente
-int livello = 3;
+int livello = 0;
 
 /* variables */
   //variabile contatore d2l2
@@ -10,6 +10,18 @@ int livello = 3;
   int timesTextHasChanged = 0;
   int stringTimer = 0;
   boolean playDrone = true;
+
+  //d2l3 variabili per movimento lettere
+  boolean letterOneClicked = false;
+  boolean letterTwoClicked = false;
+  boolean letterThreeClicked = false;
+  boolean letterFourClicked = false;
+  boolean letterFiveClicked = false;
+  boolean letterSixClicked = false;
+  boolean letterSevenClicked = false;
+
+  int levelEndLives = 3;
+  boolean mouseIsOnValid = false;
 
   //variabile per la chiusura nel glitch d1l3
   int quitTimer = 0;
@@ -638,6 +650,7 @@ void draw() {
             livello = 1;
             lvlComplete.play();
             s = "";
+            newLevel = true;
           }
         }
       }
@@ -811,76 +824,157 @@ void draw() {
 
       textSize(36);
 
-      if(mouseX > width/2-300 && mouseX < width/2+500 && mouseY > height/2-180 && mouseY < height/2+150) {
+      mouseIsOnValid = false;
 
+      if(mouseX > width/2-300 && mouseX < width/2+500 && mouseY > height/2-180 && mouseY < height/2+150) {
         cursor(HAND);
       } else {
         cursor(ARROW);
       }
 
-
       text("  will not lose myself in this.", width/2 - 300, height/2-150);
       if(mouseX > width/2-300 && mouseX < width/2-280 && mouseY > height/2-180 && mouseY < height/2-150){
         if(mousePressed) {
-          fill(250,0,0);
+          letterOneClicked = true;
         }
+        mouseIsOnValid = true;
       }
-      text("i", width/2 - 300, height/2-150);
+
+      int letterOneX = width/2 - 300;
+      int letterOneY = height/2-150;
+
+      if(letterOneClicked) {
+        letterOneX += random(-5,5);
+        letterOneY += random(-5,5);
+        fill(random(255), random(255), random(255));
+      }
+
+      text("i", letterOneX, letterOneY);
       fill(255);
 
       text("you d rather run away from me.", width/2 - 300, height/2-100);
       if(mouseX > width/2 - 300 + characterWidth * 3 && mouseX < width/2 - 280 + characterWidth * 3 && mouseY > height/2-130 && mouseY < height/2-100){
         if(mousePressed) {
-          fill(250,0,0);
+          letterTwoClicked = true;
         }
+        mouseIsOnValid = true;
       }
-      text("'", width/2 - 300 + characterWidth * 3, height/2-100);
+      
+      int letterTwoX = int(width/2 - 300 + characterWidth * 3);
+      int letterTwoY = height/2-100;
+
+      if(letterTwoClicked) {
+        letterTwoX += random(-5,5);
+        letterTwoY += random(-5,5);
+        fill(random(255), random(255), random(255));
+      }
+
+      text("'", letterTwoX, letterTwoY);
       fill(255);
 
       text("i can't  easure the pain. It hurts.", width/2 - 300, height/2-50);
       if(mouseX > width/2 - 300 + characterWidth * 8 && mouseX < width/2 - 280 + characterWidth * 8 && mouseY > height/2-80 && mouseY < height/2-50){
         if(mousePressed) {
-          fill(250,0,0);
+          letterThreeClicked = true;
         }
+        mouseIsOnValid = true;
       }
-      text("m", width/2 - 300 + characterWidth * 8, height/2-50);
+
+      int letterThreeX = int(width/2 - 300 + characterWidth * 8);
+      int letterThreeY = height/2-50;
+
+      if(letterThreeClicked) {
+        letterThreeX += random(-5,5);
+        letterThreeY += random(-5,5);
+        fill(random(255), random(255), random(255));
+      }
+
+      text("m", letterThreeX, letterThreeY);
       fill(255);
 
       text("it's so hard. I  eel so lost.", width/2 - 300, height/2);
       if(mouseX > width/2 - 300 + characterWidth * 16 && mouseX < width/2 - 280 + characterWidth * 16 && mouseY > height/2-30 && mouseY < height/2){
         if(mousePressed) {
-          fill(250,0,0);
+          letterFourClicked = true;
         }
+        mouseIsOnValid = true;
       }
-      text("f", width/2 - 300 + characterWidth * 16, height/2);
+
+      int letterFourX = int(width/2 - 300 + characterWidth * 16);
+      int letterFourY = height/2;
+
+      if(letterFourClicked) {
+        letterFourX += random(-5,5);
+        letterFourY += random(-5,5);
+        fill(random(255), random(255), random(255));
+      }
+
+      text("f", letterFourX, letterFourY);
       fill(255);
 
       text("my nose bleeds. Aga n. GIVE ME MORE!", width/2 - 300, height/2+50);
       if(mouseX > width/2 - 300 + characterWidth * 19 && mouseX < width/2 - 280 + characterWidth * 19 && mouseY > height/2+20 && mouseY < height/2+50){
         if(mousePressed) {
-          fill(250,0,0);
+          letterFiveClicked = true;
         }
+        mouseIsOnValid = true;
       }
-      text("i", width/2 - 300 + characterWidth * 19, height/2+50);
+
+      int letterFiveX = int(width/2 - 300 + characterWidth * 19);
+      int letterFiveY = height/2+50;
+
+      if(letterFiveClicked) {
+        letterFiveX += random(-5,5);
+        letterFiveY += random(-5,5);
+        fill(random(255), random(255), random(255));
+      }
+
+      text("i", letterFiveX, letterFiveY);
       fill(255);
 
-      text("they know. ALL OF THEM K OW. They hate me.", width/2 - 300, height/2+100);
+      text("THEY KNOW. All of them k ow. THEY HATE ME.", width/2 - 300, height/2+100);
       if(mouseX > width/2 - 300 + characterWidth * 24 && mouseX < width/2 - 280 + characterWidth * 24 && mouseY > height/2+70 && mouseY < height/2+100){
         if(mousePressed) {
-          fill(250,0,0);
+          letterSixClicked = true;
         }
+        mouseIsOnValid = true;
       }
-      text("N", width/2 - 300 + characterWidth * 24, height/2+100);
+
+      int letterSixX = int(width/2 - 300 + characterWidth * 24);
+      int letterSixY = height/2+100;
+
+      if(letterSixClicked) {
+        letterSixX += random(-5,5);
+        letterSixY += random(-5,5);
+        fill(random(255), random(255), random(255));
+      }
+
+      text("n", letterSixX, letterSixY);
       fill(255);
 
       text("All of this is unbearable but... i'm fin .", width/2 - 300, height/2+150);
       if(mouseX > width/2 - 300 + characterWidth * 40 && mouseX < width/2 - 280 + characterWidth * 40 && mouseY > height/2+120 && mouseY < height/2+150){
         if(mousePressed) {
-          fill(250,0,0);
+          letterSevenClicked = true;
         }
+        mouseIsOnValid = true;
       }
-      text("e", width/2 - 300 + characterWidth * 40, height/2+150);
+
+      int letterSevenX = int(width/2 - 300 + characterWidth * 40);
+      int letterSevenY = height/2+150;
+
+      if(letterSevenClicked) {
+        letterSevenX += random(-5,5);
+        letterSevenY += random(-5,5);
+        fill(random(255), random(255), random(255));
+      }
+
+      text("e", letterSevenX, letterSevenY);
       fill(255);
+
+      if(letterOneClicked && letterTwoClicked && letterThreeClicked && letterFourClicked && letterFiveClicked && letterSixClicked && letterSevenClicked) {
+        livello = 4;
+      }
     }
   }
 
@@ -1356,6 +1450,28 @@ void keyReleased() {
     livello = 0;
     s = "";
     cursorStart = originalCursorStart;
+  }
+}
+
+void mouseReleased() {
+  if(droga == 2 && livello == 3 && levelEndLives > 0 && !mouseIsOnValid && mouseX > width/2-300 && mouseX < width/2+500 && mouseY > height/2-180 && mouseY < height/2+150) {
+    levelEndLives--;
+    if(levelEndLives <= 0) {
+      livello = 0;
+      levelEndLives = 3;
+      letterOneClicked = false;
+      letterTwoClicked = false;
+      letterThreeClicked = false;
+      letterFourClicked = false;
+      letterFiveClicked = false;
+      letterSixClicked = false;
+      letterSevenClicked = false;
+      amountOfStrings = 0;
+      s="";
+      secondString = "";
+      timesTextHasChanged = 0;
+      typedLettersLv2 = int(random(0,5));
+    }
   }
 }
 

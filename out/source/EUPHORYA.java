@@ -995,6 +995,20 @@ int livello = 0;
         livello = 4;
       }
     }
+
+    if (livello == 4) {
+      textSize(48);
+      text("CONGRATULATIONS!", width/2, height/2);
+      textAlign(CENTER);
+      textSize(36);
+      text("THANK YOU", width/2, height/2+120);
+      textSize(18);
+      text("Press any key to exit, or \"M\" to go back to the main menu.", width/2, height/2 + 140);
+      if (gameOver) {
+        lvlSelect.play();
+        gameOver = false;
+      }
+    }
   }
 
   //ANCHOR cannabinoidi
@@ -1072,7 +1086,7 @@ int livello = 0;
           cursor(HAND);
           if(mousePressed) {
             cursor(ARROW);
-            livello = 1;
+            livello = 2;
             lvlComplete.play();
             newLevel = true;
           }
@@ -1219,14 +1233,10 @@ int livello = 0;
       textSize(36);
       text("THANK YOU", width/2, height/2+120);
       textSize(18);
-      text("Press any key to exit, and enjoy your sticker!", width/2, height/2 + 140);
+      text("Press any key to exit, or \"M\" to go back to the main menu.", width/2, height/2 + 140);
       if (gameOver) {
         lvlSelect.play();
         gameOver = false;
-      }
-      //click per uscire dal gioco
-      if (keyPressed) {
-        exit();
       }
     }
   }

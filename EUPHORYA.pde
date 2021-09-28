@@ -1,5 +1,5 @@
 //variabile per capire quale droga è stata scelta
-int droga = 0;
+int droga = 999;
 
 //variabile per capire in che livello si trova l'utente
 int livello = 0;
@@ -30,7 +30,7 @@ int livello = 0;
   boolean gameInfo = false;
 
   // variabile per mostrare l'avviso per contenuti che possono suscitare reazioni epilettici
-  boolean epilepsyWarning = false;
+  boolean epilepsyWarning = true;
   Timer warning_timer;
 
   //variabile font

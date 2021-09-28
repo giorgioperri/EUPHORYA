@@ -195,7 +195,7 @@ void draw() {
     text("This experience contains fast flashing images and colors. \n It may cause discomfort and trigger seizures for individuals with photosensitive epilepsy. \n \n Discretion is advised. \n \n EUPHORYA is born with the purpose of shining a light on the bad effects of drugs on the human brain and body. \n \n Drug consumption is in any way discouraged and to be avoided at all costs.", 
         width/2, height/2 - 100);
 
-    if(warning_timer.check(10000)) {
+    if(warning_timer.check(500)) {
       textSize(36);
       text("I UNDERSTOOD", width/2, height - 400);
       //if (mouseX > width/2 - 75 && mouseX < width/2 +75 && mouseY > height- 400 - 15 && mouseY < height - 400 - 15) { 
@@ -411,6 +411,7 @@ void draw() {
             livello = 1;
             lvlComplete.play();
             cursor(ARROW);
+            newLevel = true;
           }
         } else {
           cursor(ARROW);
@@ -594,9 +595,17 @@ void draw() {
           for(ciclofine = 0; ciclofine <= 60; ciclofine++){
             fill(255, 0, 0);
             text("?", random(0, width), random(0, height));
+            tooMuchText.stop();
             tooMuchText.play();
+            playSound = false;
           }
-          if(quitTimer >= 100) exit();
+          if(quitTimer >= 40) {
+            livello = 0;
+            tooMuchText.stop();
+            s="";
+            cursorStart = originalCursorStart;
+            quitTimer = 0;
+          }
           break;
         default :
           stringalv3 = "I'M FINE";
@@ -726,7 +735,7 @@ void draw() {
       }
       textAlign(LEFT);
       textSize(20);
-      text("Level 1", 10, 20);
+      text("Level 2", 10, 20);
       textAlign(CENTER);
       textSize(36);
       if (second() % 2 == 0) {
@@ -953,15 +962,15 @@ void draw() {
       text("n", letterSixX, letterSixY);
       fill(255);
 
-      text("All of this is unbearable but... i'm fin .", width/2 - 300, height/2+150);
-      if(mouseX > width/2 - 300 + characterWidth * 40 && mouseX < width/2 - 280 + characterWidth * 40 && mouseY > height/2+120 && mouseY < height/2+150){
+      text("All of this pain is unbearabl  but... i'm ok.", width/2 - 300, height/2+150);
+      if(mouseX > width/2 - 300 + characterWidth * 29 && mouseX < width/2 - 280 + characterWidth * 40 && mouseY > height/2+120 && mouseY < height/2+150){
         if(mousePressed) {
           letterSevenClicked = true;
         }
         mouseIsOnValid = true;
       }
 
-      int letterSevenX = int(width/2 - 300 + characterWidth * 40);
+      int letterSevenX = int(width/2 - 300 + characterWidth * 29);
       int letterSevenY = height/2+150;
 
       if(letterSevenClicked) {
@@ -1000,7 +1009,7 @@ void draw() {
       textSize(30);
       text("How to play:", width/2, height/2-150);
       textSize(30);
-      text("Just write \"I'm fine\"", width/2, height/2-100);
+      text("Just write \"i'm fine\"", width/2, height/2-100);
       textSize(36);
       if (second() % 2 == 0) {
         fill(255);
@@ -1443,7 +1452,18 @@ void keyReleased() {
     if(key == 'm') {
       droga = 0;
       livello = 0;
-      s = "";
+      levelEndLives = 3;
+      letterOneClicked = false;
+      letterTwoClicked = false;
+      letterThreeClicked = false;
+      letterFourClicked = false;
+      letterFiveClicked = false;
+      letterSixClicked = false;
+      letterSevenClicked = false;
+      amountOfStrings = 0;
+      s="";
+      secondString = "";
+      timesTextHasChanged = 0;
       cursorStart = originalCursorStart; 
     } else {
       exit();
